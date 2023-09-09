@@ -40,21 +40,25 @@ function close() {
   $(".side-container ul li:nth-child(4)").animate({ top: "300px" }, 600);
   $(".side-container ul li:nth-child(5)").animate({ top: "300px" }, 500);
 }
+$(".loading").fadeIn(10);
 $(document).ready(function () {
-  $(".loading").fadeOut(500);
+  $(".loading").fadeOut(2000);
 });
-function toggleSpinner() {
-  $(".loading").fadeToggle(500);
+function openSpinner() {
+  $(".loading").fadeIn(10);
+}
+function closeSpinner() {
+  $(".loading").fadeOut(10);
 }
 // >=============> get data <================<
 // let meal = "";
 async function getMainData(apiUrl, idContainer) {
-  toggleSpinner();
+  openSpinner();
   const res = await fetch(apiUrl);
   let data = await res.json();
   meal = data.meals;
+  closeSpinner();
   displayMeals(data.meals, idContainer);
-  toggleSpinner();
 }
 getMainData("https://www.themealdb.com/api/json/v1/1/search.php?s=", mainHome);
 // >=============> display meals <================<
@@ -184,12 +188,12 @@ $("#searchByLetter").keyup(function (e) {
 // >=============> category section <================<
 let mealCategory = "";
 async function getCategoryData(apiUrl, idContainer) {
-  toggleSpinner();
+  openSpinner();
   const res = await fetch(apiUrl);
   let data = await res.json();
   mealCategory = data.categories;
+  closeSpinner();
   displayCategories(mealCategory, idContainer);
-  toggleSpinner();
 }
 getCategoryData(
   `https://www.themealdb.com/api/json/v1/1/categories.php`,
@@ -220,14 +224,14 @@ function displayCategories(mealCategory, idContainer) {
 let mealsId = ``;
 async function getCatDetails(index) {
   let cateName = mealCategory[index].strCategory;
-  toggleSpinner();
+  openSpinner();
   let myHttp = await fetch(
     `https://www.themealdb.com/api/json/v1/1/filter.php?c=${cateName}`
   );
   let data = await myHttp.json();
   mealsId = data.meals;
+  closeSpinner();
   displayRelatedMeals(mealsId, showCategories);
-  toggleSpinner();
 }
 
 function displayRelatedMeals(meal, idContainer) {
@@ -249,14 +253,14 @@ function displayRelatedMeals(meal, idContainer) {
 let dataCat = ``;
 async function getCateMeals(index) {
   let mealId = mealsId[index].idMeal;
-  toggleSpinner();
+  openSpinner();
   let res = await fetch(
     `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${mealId}`
   );
   let d = await res.json();
   dataCat = d.meals;
+  closeSpinner();
   dDetails(0, dataCat);
-  toggleSpinner();
 }
 
 // onclick="getCateMeals(${i})"
@@ -325,12 +329,12 @@ function dDetails(index, x) {
 // >=============> area section <================<
 let mealArea = "";
 async function getAreaData(apiUrl, idContainer) {
-  toggleSpinner();
+  openSpinner();
   const res = await fetch(apiUrl);
   let data = await res.json();
   mealArea = data.meals;
+  closeSpinner();
   displayAreas(mealArea, idContainer);
-  toggleSpinner();
 }
 getAreaData(
   `https://www.themealdb.com/api/json/v1/1/list.php?a=list`,
@@ -353,24 +357,24 @@ function displayAreas(meal, idContainer) {
 // >=============> display related meals <================<
 async function displayRelated(country) {
   let name = mealArea[country].strArea;
-  toggleSpinner();
+  openSpinner();
   let res = await fetch(
     `https://www.themealdb.com/api/json/v1/1/filter.php?a=${name}`
   );
   let data = await res.json();
   mealsId = data.meals;
+  closeSpinner();
   displayRelatedMeals(mealsId, showAreas);
-  toggleSpinner();
 }
 // >=============> ingredients section <================<
 let mealIngredients = "";
 async function getIngredientsData(apiUrl, idContainer) {
-  toggleSpinner();
+  openSpinner();
   const res = await fetch(apiUrl);
   let data = await res.json();
   mealIngredients = data.meals;
+  closeSpinner();
   displayIngredients(mealIngredients, idContainer);
-  toggleSpinner();
 }
 getIngredientsData(
   `https://www.themealdb.com/api/json/v1/1/list.php?i=list`,
@@ -394,14 +398,14 @@ function displayIngredients(meal, idContainer) {
 // >=============> relatedIngredients meals <================<
 async function displayRel(k) {
   let name = mealIngredients[k].strIngredient;
-  toggleSpinner();
+  openSpinner();
   let res = await fetch(
     `https://www.themealdb.com/api/json/v1/1/filter.php?i=${name}`
   );
   let data = await res.json();
   mealsId = data.meals;
+  closeSpinner();
   displayRelatedMeals(mealsId, showIngredients);
-  toggleSpinner();
 }
 // >=============> contact us section <================<
 for (let i = 0; i < inputs.length; i++) {
