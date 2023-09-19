@@ -45,10 +45,10 @@ $(document).ready(function () {
   $(".loading").fadeOut(2000);
 });
 function openSpinner() {
-  $(".loading").fadeIn(10);
+  $(".loading").fadeIn(300);
 }
 function closeSpinner() {
-  $(".loading").fadeOut(10);
+  $(".loading").fadeOut(300);
 }
 // >=============> get data <================<
 // let meal = "";
@@ -57,8 +57,8 @@ async function getMainData(apiUrl, idContainer) {
   const res = await fetch(apiUrl);
   let data = await res.json();
   meal = data.meals;
-  closeSpinner();
   displayMeals(data.meals, idContainer);
+  closeSpinner();
 }
 getMainData("https://www.themealdb.com/api/json/v1/1/search.php?s=", mainHome);
 // >=============> display meals <================<
@@ -192,8 +192,8 @@ async function getCategoryData(apiUrl, idContainer) {
   const res = await fetch(apiUrl);
   let data = await res.json();
   mealCategory = data.categories;
-  closeSpinner();
   displayCategories(mealCategory, idContainer);
+  closeSpinner();
 }
 getCategoryData(
   `https://www.themealdb.com/api/json/v1/1/categories.php`,
@@ -230,8 +230,8 @@ async function getCatDetails(index) {
   );
   let data = await myHttp.json();
   mealsId = data.meals;
-  closeSpinner();
   displayRelatedMeals(mealsId, showCategories);
+  closeSpinner();
 }
 
 function displayRelatedMeals(meal, idContainer) {
@@ -259,8 +259,8 @@ async function getCateMeals(index) {
   );
   let d = await res.json();
   dataCat = d.meals;
-  closeSpinner();
   dDetails(0, dataCat);
+  closeSpinner();
 }
 
 // onclick="getCateMeals(${i})"
@@ -333,8 +333,8 @@ async function getAreaData(apiUrl, idContainer) {
   const res = await fetch(apiUrl);
   let data = await res.json();
   mealArea = data.meals;
-  closeSpinner();
   displayAreas(mealArea, idContainer);
+  closeSpinner();
 }
 getAreaData(
   `https://www.themealdb.com/api/json/v1/1/list.php?a=list`,
@@ -363,8 +363,8 @@ async function displayRelated(country) {
   );
   let data = await res.json();
   mealsId = data.meals;
-  closeSpinner();
   displayRelatedMeals(mealsId, showAreas);
+  closeSpinner();
 }
 // >=============> ingredients section <================<
 let mealIngredients = "";
@@ -373,8 +373,8 @@ async function getIngredientsData(apiUrl, idContainer) {
   const res = await fetch(apiUrl);
   let data = await res.json();
   mealIngredients = data.meals;
-  closeSpinner();
   displayIngredients(mealIngredients, idContainer);
+  closeSpinner();
 }
 getIngredientsData(
   `https://www.themealdb.com/api/json/v1/1/list.php?i=list`,
@@ -404,8 +404,8 @@ async function displayRel(k) {
   );
   let data = await res.json();
   mealsId = data.meals;
-  closeSpinner();
   displayRelatedMeals(mealsId, showIngredients);
+  closeSpinner();
 }
 // >=============> contact us section <================<
 for (let i = 0; i < inputs.length; i++) {
